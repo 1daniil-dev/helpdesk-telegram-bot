@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"crypto/rand"
+	"errors"
 	"math/big"
 	"strings"
 	"time"
@@ -95,6 +96,9 @@ func (s *AdminService) RedeemInvite(ctx context.Context, rawCode string, userID 
 
 	invite, err := s.invites.GetInviteByCode(ctx, code)
 	if err != nil {
+		if errors.Is(err, domain.ErrNotFound) {
+			return domain.User{}, domain.ErrInviteNotFound
+		}
 		return domain.User{}, err
 	}
 
