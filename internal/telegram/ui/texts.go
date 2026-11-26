@@ -224,7 +224,8 @@ func CategoriesText(cats []domain.Category, note string) string {
 	}
 	b.WriteString("\n✏️ — переименовать, 🙈/👁 — скрыть или показать.")
 	if note != "" {
-		b.WriteString("\n\n" + note)
+		b.WriteString("\n\n")
+		b.WriteString(note)
 	}
 	return b.String()
 }
